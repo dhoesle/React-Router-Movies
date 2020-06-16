@@ -1,11 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRouteMatch, useHistory, useParams,  NavLink, Route } from 'react-router-dom'
+
 
 const Movie = (props) => {
   const [movie, setMovie] = useState();
- 
+
+
+
+  const { url, path } = useRouteMatch()
+  const { movieId }  = useParams()
+
+
+
+  console.log('url from the hook', url)
+  console.log('path from the hook', path)
+  console.log('params from the params hook', movieId)
+  
+  
+
+
+
+
+
   useEffect(() => {
-    const id = 1;
+    const id = movieId
+
     // change ^^^ that line and grab the id from the URL
     // You will NEED to add a dependency array to this effect hook
 
@@ -13,6 +33,7 @@ const Movie = (props) => {
         .get(`http://localhost:5000/api/movies/${id}`)
         .then(response => {
           setMovie(response.data);
+          console.log(response.data.id);
         })
         .catch(error => {
           console.error(error);
